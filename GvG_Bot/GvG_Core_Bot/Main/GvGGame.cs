@@ -18,6 +18,8 @@ namespace GvG_Core_Bot.Main
     {
         int Day = 0;
         TimeSpan Phase_Interval = new TimeSpan(0, 0, 30);
+
+        // tdl yet another resx for data
         readonly Dictionary<GameStatus, string> StatusNames = new Dictionary<GameStatus, string>()
         {
             [GameStatus.ActionPhase] = "Action Phase",
@@ -25,6 +27,7 @@ namespace GvG_Core_Bot.Main
         };
         string link_rewrite_blue = "http://orig05.deviantart.net/af4d/f/2014/107/a/f/rewrite___magic_circle_1_by_darksaturn93-d7etzpu.png";
 
+        #region Discord Data
         IGuild GameHost { get; set; }
         IUser Hoster { get; set; }
         ITextChannel Public_GvG { get; set; }
@@ -35,9 +38,9 @@ namespace GvG_Core_Bot.Main
         public IRole Guardian { get; private set; }
         public IRole Gaia { get; private set; }
         public IRole Occult_Club { get; private set; }
-
         public IRole GvG_Player { get; private set; }
         public IRole GvG_Dead_Player { get; private set; }
+        #endregion
 
         List<IGuildUser> GaiaMembers { get; set; } = new List<IGuildUser>();
         List<IGuildUser> OCMembers { get; set; } = new List<IGuildUser>();
@@ -166,14 +169,13 @@ namespace GvG_Core_Bot.Main
                 await (await GameHost.GetTextChannelsAsync()).First((x) => x.Name == "public_gvg").SendMessageAsync("The game has been cancelled by the host.");
             }
         }
-
         public async Task StartGame(IUser invoker)
         {
             if (invoker.Id != Hoster.Id) return;
             // placeholder for Storymaker.
             var start_embed = new EmbedBuilder().WithTitle("Game Start!");
 
-            AssignRoles();
+            await AssignRoles();
 
             Day++;
             Status = GameStatus.IdlePhase;
@@ -190,14 +192,33 @@ namespace GvG_Core_Bot.Main
             await OC_Channel.SendMessageAsync("", false, start_embed);
         }
 
-        private void AssignRoles ()
+        #region Assignment
+        private async Task AssignRoles ()
         {
-            // empty for now.
-            IEnumerable<IGameRole> oc_roles = GenerateOCRoles(OCMembers.Count);
-            IEnumerable<IGameRole> gaia_roles = GenerateGaiaRoles(GaiaMembers.Count);
-
-           
+            IEnumerable<IGameRole>[] roles = new IEnumerable<IGameRole>[] {
+                GenerateOCRoles(OCMembers.Count),
+                GenerateGaiaRoles(GaiaMembers.Count),
+                GenerateGuardianRoles(GuardianMembers.Count),
+                await GenerateCivilianRoles(Civilians.Count)
+            };
+            var members_ordered = new List<IGuildUser>[]
+            {
+                OCMembers,
+                GaiaMembers,
+                GuardianMembers,
+                Civilians
+            };
+            for (int i = 0; i < roles.Length; i++) AddRoleListInOrder(members_ordered[i], roles[i]);
         }
+        private void AddRoleListInOrder(List<IGuildUser> members, IEnumerable<IGameRole> roles)
+        {
+            var array_roles = roles.ToArray();
+            for (int i = 0; i < members.Count; i++)
+            {
+                RoleAssignments.Add(members[i], array_roles[i]);
+            }
+        }
+        
 
         public IEnumerable<IGameRole> GenerateGaiaRoles(int count)
         {
@@ -206,7 +227,6 @@ namespace GvG_Core_Bot.Main
             // randomly the array can change and you can instead have Chihaya and Sakuya separate.
             return result.OrderBy((x) => Randomizer.Next());
         }
-
         public IEnumerable<IGameRole> GenerateOCRoles(int count)
         {
             IEnumerable<IGameRole> result = new IGameRole[] { new Kotori(), new Kotarou(), new GilAndPana(), new GilAndPana() };
@@ -214,7 +234,6 @@ namespace GvG_Core_Bot.Main
             // randomly, the array can change and you can instead have gil and pana separate.
             return result.OrderBy((x) => Randomizer.Next());
         }
-
         public IEnumerable<IGameRole> GenerateGuardianRoles(int count)
         {
             IEnumerable<IGameRole> result = new IGameRole[] { new Touka(), new Shizuru(), new Lucia(), new Imamiya() };
@@ -222,7 +241,6 @@ namespace GvG_Core_Bot.Main
             // randomly, the array can change and you can instead have gil and pana separate.
             return result.OrderBy((x) => Randomizer.Next());
         }
-
         public async Task<IEnumerable<IGameRole>> GenerateCivilianRoles(int count)
         {
             var everyone = GaiaMembers.Concat(GuardianMembers).Concat(OCMembers).Concat(Civilians);
@@ -251,6 +269,7 @@ namespace GvG_Core_Bot.Main
             if (count > 4) for (int i = 0; i < count - 4; i++) result = result.Append(new NormalCivilian());
             return result.OrderBy((x) => Randomizer.Next());
         }
+        #endregion
 
         public void  Move_Phase ()
         {
@@ -308,6 +327,12 @@ namespace GvG_Core_Bot.Main
             }
             return embed;
         }
+
+        public EmbedBuilder FindRole (IGuildUser user)
+        {
+
+        }
+
     }
 
     public enum JoinResponse
@@ -317,7 +342,6 @@ namespace GvG_Core_Bot.Main
         AlreadyJoined,
         NoGameYet
     }
-
     public enum GameStatus
     {
         Cancelled,
