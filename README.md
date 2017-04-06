@@ -2,7 +2,7 @@
 # Status
 >Not Yet Complete (Working on Databases and Roles)
 # About
-This is a bot for Discord that simulates a game of Guardian vs Gaia, based on the anime / Visual Novel / mobage Rewrite. It uses various functionalities and utilizes many features from Discord to make the game playable. This is meant to be a long game, lasting at least 15 days (12 hours Action Phase and 12 hours Idle / Strategy Phase), however, it can be adjusted to be a short game.
+This is a bot for Discord that simulates a game of Gaia vs Guardian, based on the anime / Visual Novel / mobage Rewrite. It uses various functionalities and utilizes many features from Discord to make the game playable. This is meant to be a long game, lasting at least 15 days (12 hours Action Phase and 12 hours Idle / Strategy Phase), however, it can be adjusted to be a short game.
 ## Game Requirements
 16 Players, 4 for each of the main factions of this game. 
 The last faction, the Civilians, can be simply chosen from a random group of people, if there are too few people.
