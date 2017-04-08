@@ -12,9 +12,8 @@ They're the secret organization tasked with protecting humanity. They're a handf
 ### Gaia
 They're the secret organizaiton whose forefront (facade) is Martel Group. Directly headed by its Saint, Kashima Sakura, they're Summoners who use their own Life Force (Aurora) to create familiars. They're the enemies of Guardian because thier belief is that the Key has been Summoned to judge the world for its sins and iniate Salvation, which Guardian wants to prevent at all costs.
 ### Occult Club
-Kotarou Tennouji, the series' Main Character, and Kotori Kanbe, the enigmatic Druid. These two people are neither from Gaia or Guardian. However, as their fellow Occult Club members, Akane Senri, Chihaya Ohtori (his Butler, Sakuya Ohtori is totally irrelevant), happen to be in Gaia, while Lucia Konohana, and Shizuru Nakatsu, belong to Guardian, the now former duo is now in a pinch, especially with them being with the Key, the sole judge of the world. Who shall they side with? Will all the members of the Occult Club return for at least one last encore?
+Kotarou Tennouji, the series' Main Character, and Kotori Kanbe, the enigmatic Druid. These two people are neither from Gaia or Guardian. However, as their fellow Occult Club members, Akane Senri, Chihaya Ohtori (her Butler, Sakuya Ohtori is totally irrelevant), happen to be in Gaia, while Lucia Konohana, and Shizuru Nakatsu, belong to Guardian, the now former-Occult-Club duo is now in a pinch, especially with them being with the Key, the sole judge of the world. Who shall they side with? Will all the members of the Occult Club return for at least one last encore?
 ### Key
-Then there's the Key, hidden amongst the public, the familiar created by the Earth to judge the world. How will the world be judged? Will the world be saved? "Fond memories," she said. Just what are these fond memories?
-
+Then there's the Key, hidden amongst the public Civilian population, the familiar created by the Earth to judge the world. How will the world be judged? Will the world be saved? "Fond memories," she said. Just what are these fond memories?
 <!-- Work in Progress, everything else -->
 <!-- nishikujou touka -->
