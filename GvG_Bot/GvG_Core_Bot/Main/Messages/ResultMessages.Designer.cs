@@ -78,5 +78,158 @@ namespace GvG_Core_Bot.Main.Messages {
                 return ResourceManager.GetString("BotIsOnline", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue Error.
+        /// </summary>
+        public static string ContError {
+            get {
+                return ResourceManager.GetString("ContError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You aren&apos;t authorized to continue the game, paused or not..
+        /// </summary>
+        public static string ContError_NotAuthorized {
+            get {
+                return ResourceManager.GetString("ContError_NotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You tried to continue an already continuing game..
+        /// </summary>
+        public static string ContError_NotPaused {
+            get {
+                return ResourceManager.GetString("ContError_NotPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Continued].
+        /// </summary>
+        public static string ContSuccess {
+            get {
+                return ResourceManager.GetString("ContSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully continued the game..
+        /// </summary>
+        public static string ContSuccess_Desc {
+            get {
+                return ResourceManager.GetString("ContSuccess_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You tried to create a game when there&apos;s already an ongoing game..
+        /// </summary>
+        public static string CreateGameException_OngoingGame {
+            get {
+                return ResourceManager.GetString("CreateGameException_OngoingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Gaia VS Guardians Game!.
+        /// </summary>
+        public static string CreateGameSuccess {
+            get {
+                return ResourceManager.GetString("CreateGameSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is starting a game of GvG! If anyone wants to join, type &quot;%join_game&quot; (without the quotes)..
+        /// </summary>
+        public static string CreateGameSuccess_Desc {
+            get {
+                return ResourceManager.GetString("CreateGameSuccess_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patrol Error.
+        /// </summary>
+        public static string PatrolError {
+            get {
+                return ResourceManager.GetString("PatrolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You aren&apos;t a GvG player at all..
+        /// </summary>
+        public static string PatrolError_NotInGame {
+            get {
+                return ResourceManager.GetString("PatrolError_NotInGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The tile code is invalid. Please use the proper code (number)x(number)..
+        /// </summary>
+        public static string PatrolError_ParseError {
+            get {
+                return ResourceManager.GetString("PatrolError_ParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Error.
+        /// </summary>
+        public static string PauseError {
+            get {
+                return ResourceManager.GetString("PauseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You tried to pause an already paused game..
+        /// </summary>
+        public static string PauseError_AlreadyPaused {
+            get {
+                return ResourceManager.GetString("PauseError_AlreadyPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You tried to pause a cancelled game..
+        /// </summary>
+        public static string PauseError_CancelledGame {
+            get {
+                return ResourceManager.GetString("PauseError_CancelledGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not authorized to pause this game. Refer to {0}..
+        /// </summary>
+        public static string PauseError_NotAuthorized {
+            get {
+                return ResourceManager.GetString("PauseError_NotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Paused].
+        /// </summary>
+        public static string PauseSuccess {
+            get {
+                return ResourceManager.GetString("PauseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully paused the game..
+        /// </summary>
+        public static string PauseSuccess_Desc {
+            get {
+                return ResourceManager.GetString("PauseSuccess_Desc", resourceCulture);
+            }
+        }
     }
 }

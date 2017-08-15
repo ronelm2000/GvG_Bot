@@ -14,5 +14,7 @@ namespace GvG_Core_Bot
         public string oc_chan_name { get; set; }
         public string gaia_chan_name { get; set; }
         public string guardian_chan_name { get; set; }
+        public string gvg_player_role_name { get; set; }
+        public string gvg_dead_player_role_name { get; set; }
     }
 }

@@ -10,15 +10,18 @@ namespace GvG_Core_Bot.Main.Positioning
 {
     public class Map
     {
-        List<Presence>[,] GameMap;
-        List<Vector2D> DestroyedTiles;
-        List<Vector2D> PoisonedTiles;
+        public List<Presence>[,] GameMap { get; private set; }
+        public List<Vector2D> DestroyedTiles { get; private set; } = new List<Vector2D>();
+        public List<Vector2D> PoisonedTiles { get; private set; } = new List<Vector2D>();
 
         public Map (int x, int y)
         {
             GameMap = new List<Presence>[x, y];
-            DestroyedTiles = new List<Vector2D>();
         }
+
+        public int MaxY { get; internal set; }
+        public int MaxX { get; internal set; }
+
         public async Task Place(IEnumerable<Presence> presence, IEnumerable<Vector2D> positions)
         {
             //var dm_chan = await presence.First().Role.RolePlayer.CreateDMChannelAsync();

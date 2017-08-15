@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using GvG_Core_Bot.Main;
 using Discord.WebSocket;
+using GvG_Core_Bot.Main.Commands.CustomAttributes;
 
 namespace GvG_Core_Bot.Main.Commands
 {
-    public class Join : ModuleBase<SocketCommandContext>
+    [Name("Factions")]
+    public class Factions : ModuleBase<SocketCommandContext>
     {
-        // ~say hello -> hello
-        [Command("join"), Summary("Joins a faction."), Alias("j")]
+        [Command("join"), SummaryResx("JoinDesc"), Alias("j")]
         [RequireContext(ContextType.Guild)]
         [RequireBotPermission(
             GuildPermission.ManageRoles &
@@ -22,7 +23,7 @@ namespace GvG_Core_Bot.Main.Commands
             GuildPermission.ManageGuild &
             GuildPermission.MentionEveryone &
             GuildPermission.Administrator)]
-        public async Task Say(
+        public async Task JoinFaction(
             [Remainder, Summary("The faction to join.")] string faction
             )
         {
@@ -61,23 +62,6 @@ namespace GvG_Core_Bot.Main.Commands
                 Context.Guild.TextChannels.First((x) => x.Name == "general").SendMessageAsync($"{g_user.Mention} has joined the ranks of {sel_role.Mention}!");
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
-            /*
-            var gaia_role = all_roles.First((x) => x.Name == "gaia");
-            var guard_role = all_roles.First((x) => x.Name == "guardian");
-            var oc_role = all_roles.First((x) => x.Name == "occult club");
-            //var sel_role = all_roles.First((x) => x.Name == faction);
-
-            if (g_user.Roles.Any((x)=> x.Id == gaia_role.Id || x.Id==guard_role.Id g_user.RoleIds.Contains(oc_role.Id) || g_user.RoleIds.Contains(guard_role.Id))
-                await ReplyAsync("You're already in a faction!");
-            else
-            {
-                await g_user.AddRoleAsync(sel_role);
-                await (await Context.Guild.GetTextChannelsAsync()).First((x) => x.Name == "general").SendMessageAsync($"{g_user.Mention} has joined the ranks of {sel_role.Mention}!");
-            
-            }
-            */
-            // ReplyAsync is a method on ModuleBase
-            // await ReplyAsync(role?.Name);
         }
 
         string FixFactionString(string unfixed)
@@ -88,6 +72,36 @@ namespace GvG_Core_Bot.Main.Commands
             else if (unfixed.StartsWith("ga")) return "gaia";
             else if (unfixed.StartsWith("oc") || unfixed.StartsWith("oc")) return "occult club";
             return "null";
+        }
+
+
+        [Command("quit"), SummaryResx("QuitDesc"), Alias("q")]
+        [RequireBotPermission(GuildPermission.ManageRoles)]
+        [RequireContext(ContextType.Guild)]
+        public async Task QuitFaction()
+        {
+            if (Context.IsPrivate)
+            {
+                await ReplyAsync("Please post in a Discord server for this functionality.");
+                return;
+            }
+            var Gaia = Context.Guild.Roles.First((x) => x.Name == "gaia");
+            var Guardian = Context.Guild.Roles.First((x) => x.Name == "guardian");
+            var Occult_Club = Context.Guild.Roles.First((x) => x.Name == "occult club");
+
+            if ((Context.User as SocketGuildUser).Roles.Any((x) => x.Name == "gvg player" || x.Name == "gvg dead player"))
+            {
+                await ReplyAsync("You cannot change factions while in a GvG Game.");
+            }
+            else if ((Context.User as SocketGuildUser).Roles.Any((x) => x.Name == "gaia" || x.Name == "guardian" || x.Name == "occult club"))
+            {
+                var allRPRoles = new IRole[] { Gaia, Guardian, Occult_Club };
+                var Prev_Role = (Context.User as SocketGuildUser).Roles.First((r) => allRPRoles.Contains(r));
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                (Context.User as SocketGuildUser).RemoveRolesAsync(new IRole[] { Gaia, Guardian, Occult_Club });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                await Context.Guild.TextChannels.First((x) => x.Name == "general").SendMessageAsync($"{Context.User.Mention} has quit {Prev_Role.Mention}");
+            }
         }
     }
 }

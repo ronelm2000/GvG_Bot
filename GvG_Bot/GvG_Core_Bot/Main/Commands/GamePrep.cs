@@ -7,16 +7,18 @@ using GvG_Core_Bot.Main;
 using Discord;
 using Discord.Commands;
 using System.Threading.Tasks;
+using GvG_Core_Bot.Main.Commands.CustomAttributes;
 
 namespace GvG_Core_Bot.Main.Commands
 {
+    [Name("Game Prep")]
     public class GamePrep : ModuleBase<SocketCommandContext>
     {
         GvG_GameService GameService { get; set; }
 
-        public GamePrep(IDependencyMap _map)
+        public GamePrep(IServiceProvider _serv)
         {
-            this.GameService = _map.Get<GvG_GameService>();
+            this.GameService = (GvG_GameService)_serv.GetService(typeof(GvG_GameService));
         }
 
         [Command("join_game"), Summary("Joins the next game of Gaia vs Guardians."), Alias("jg")]
@@ -73,16 +75,12 @@ namespace GvG_Core_Bot.Main.Commands
                 oc_chan);
         }
 
-        [Command("cancel_game"), Summary("Cancel the game."), Alias("cancel", "can")]
+        [Command("cancel_game"), SummaryResx("CancelGameDesc"), Alias("cancel", "can")]
         [RequireContext(ContextType.Guild)]
         public async Task SayCancelGame()
         {
             var CurrentGame = GameService.GetServerInstance(Context.Guild);
-            if (CurrentGame.Status > GameStatus.GamePreparation)
-            {
-                await ReplyAsync("The game has already started!");
-            }
-            else if (CurrentGame.Status > GameStatus.ActionPhase)
+            if (CurrentGame.Status > GameStatus.ActionPhase)
             {
                 await ReplyAsync("The game has already ended!");
             }
@@ -96,7 +94,7 @@ namespace GvG_Core_Bot.Main.Commands
             }
         }
 
-        [Command("status"), Summary("Shows the current status of the game; shows more if you're theServer Owner, or Bot Owner."), Alias("s")]
+        [Command("status"), SummaryResx("StatusDesc"), Alias("s")]
         public async Task SayStatus(
             [Summary("Optional, this will try to show the exact status of the game.")]
             bool showExactGameStatus = false,
@@ -105,7 +103,7 @@ namespace GvG_Core_Bot.Main.Commands
             )
         {
             var CurrentGame = GameService.GetServerInstance(Context.Guild);
-            EmbedBuilder StatusEmbed = CurrentGame.GenerateEmbedStatus(showExactGameStatus);
+             EmbedBuilder StatusEmbed = CurrentGame.GetFullStatus(showExactGameStatus);
             await ReplyAsync("", false, StatusEmbed);
             if (showBotOwnerStatus)
             {
@@ -118,7 +116,9 @@ namespace GvG_Core_Bot.Main.Commands
             )
         {
             var CurrentGame = GameService.GetServerInstance(Context.Guild);
-            await CurrentGame.StartGame(Context.User);
+            var response = await CurrentGame.StartGame(Context.User);
+            if (response != null) await ReplyAsync("", false, response);
+            await Context.Message.DeleteAsync();
         }
     }
 }

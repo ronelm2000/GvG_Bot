@@ -4,6 +4,7 @@ using GvG_Core_Bot.Main;
 using System.Collections.Generic;
 using GvG_Core_Bot.Main.Roles;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GvGCore.UnitTests
 {
@@ -13,11 +14,11 @@ namespace GvGCore.UnitTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void RandomTest()
+        public async Task RandomTest()
         {
             int expected_result = 100;
             int expected_roles = 6;
-            IEnumerable<IGameRole> roles = (new GvGGame(null, null)).GenerateGaiaRoles(expected_roles);
+            IEnumerable<IGameRole> roles = await (new GvGGame(null, null)).GenerateGaiaRoles(expected_roles);
             string[] results = new string[Factorial(4) * expected_result];
             for (int i = 0; i < results.Length; i++) results[i] = (from x in roles select x.GetType().Name).Aggregate((x, y) => x + ", " + y);
 

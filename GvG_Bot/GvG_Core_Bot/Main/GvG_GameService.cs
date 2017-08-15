@@ -11,12 +11,14 @@ namespace GvG_Core_Bot.Main
 {
     public class GvG_GameService : IGameService, IDisposable
     {
-        IDependencyMap _map;
+        IServiceProvider _serv;
         public ConcurrentDictionary<ulong, GvGGame> ListOfGames { get; set; } = new ConcurrentDictionary<ulong, GvGGame>();
+        internal Config config;
 
-        public GvG_GameService (IDependencyMap map)
+        public GvG_GameService (IServiceProvider serv, Config _config)
         {
-            _map = map;
+            _serv = serv;
+            config = _config;
         }
 
         public GvGGame GetServerInstance(IGuild server)
@@ -26,7 +28,7 @@ namespace GvG_Core_Bot.Main
                 return ListOfGames[server.Id];
             } else
             {
-                var newGameInstance = new GvGGame(_map, server);
+                var newGameInstance = new GvGGame(_serv, server);
                 ListOfGames.AddOrUpdate(server.Id, newGameInstance, (x,former)=>newGameInstance);
                 return newGameInstance;
             }
