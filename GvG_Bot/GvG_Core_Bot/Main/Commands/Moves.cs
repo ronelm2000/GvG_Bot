@@ -45,12 +45,12 @@ namespace GvG_Core_Bot.Main.Commands
             try
             {
                 var translatedMove = Vector2D.Parse(patrolString);
-                await ReplyAsync("", false, await Game.PatrolQueue(await Game.GvG_Player.Guild.GetUserAsync(Context.User.Id), Context, translatedMove));
+                await ReplyAsync("", false, (await Game.PatrolQueue(await Game.GvG_Player.Guild.GetUserAsync(Context.User.Id), Context, translatedMove)).Build());
             } catch (FormatException e)
             {
                 await ReplyAsync("", false, new EmbedBuilder()
                     .WithTitle(ResultMessages.PatrolError)
-                    .WithDescription(ResultMessages.PatrolError_ParseError));
+                    .WithDescription(ResultMessages.PatrolError_ParseError).Build());
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -62,7 +62,7 @@ namespace GvG_Core_Bot.Main.Commands
             [SummaryResx("DisplayMapDesc_TileSummary")]
             string tileNumber = "")
         {
-            await ReplyAsync("", false, await Game.GetMapStatus(Context.Guild.GetUser(Context.User.Id), Context.Channel, Context.IsPrivate));
+            await ReplyAsync("", false, (await Game.GetMapStatus(Context.Guild.GetUser(Context.User.Id), Context.Channel, Context.IsPrivate)).Build());
             /*:one::ok::ng::ok::ok::ok::ok::ok::ok:
 :two::ok::ok::ok::ok::ok::ok::ok::ok:
 :three::ok::ok::ok::ok::ok::ok::ok::ok:

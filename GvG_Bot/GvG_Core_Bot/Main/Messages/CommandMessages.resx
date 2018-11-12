@@ -141,6 +141,12 @@
   <data name="MovementDesc" xml:space="preserve">
     <value>This module contains all generic movements.</value>
   </data>
+  <data name="MuteAllDesc" xml:space="preserve">
+    <value>Mutes all users with a specified role.</value>
+  </data>
+  <data name="MuteAll_RoleSummary" xml:space="preserve">
+    <value>The name of the role that must be muted / unmuted.</value>
+  </data>
   <data name="PatrolDesc" xml:space="preserve">
     <value>Used during the Idle Phase. You will patrol a specified area, example 5x4 (starting from the top-left-most tile, five tiles right, then four tiles down.) You can change your patrol command until the end of the Idle Phase. Insert commas between the positions to perform a multi-patrol with relevant characters (like Chihaya &amp; Sakuya). Patrol prioritizes a PM to Kagari, and if you had PM'd Kagari within the Phase, it will ignore all other patrol commands in the corresponding public channels. (Useful for bluffing / faking out roles.)</value>
   </data>
@@ -155,5 +161,8 @@
   </data>
   <data name="StatusDesc" xml:space="preserve">
     <value>Shows the current status of the game; shows more if you're the Server Owner, or Bot Owner.</value>
+  </data>
+  <data name="UnMuteAllDesc" xml:space="preserve">
+    <value>Unmutes all users with a specified role.</value>
   </data>
 </root>

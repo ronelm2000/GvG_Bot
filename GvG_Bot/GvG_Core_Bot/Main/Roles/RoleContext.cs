@@ -7,11 +7,12 @@ namespace GvG_Core_Bot.Main.Roles
 {
     public class RoleContext
     {
-        public delegate Task RoleEvent (RoleContext context);
     
     }
 
-    public enum RoleContextType
+	public delegate Task RoleEvent(RoleContext context);
+
+	public enum RoleContextType
     {
         Public,
         Channel,

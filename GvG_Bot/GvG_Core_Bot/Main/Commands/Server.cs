@@ -10,6 +10,7 @@ using System.Threading;
 using System.Resources;
 using Microsoft.Extensions.Configuration;
 using GvG_Core_Bot.Main.Messages;
+using Discord.Rest;
 
 namespace GvG_Core_Bot.Main.Commands
 {
@@ -43,13 +44,16 @@ namespace GvG_Core_Bot.Main.Commands
             foreach (var chan in Context.Client.Guilds)
             {
                 var gvg_chan = chan.TextChannels.FirstOrDefault((x) => x.Name == _config.pub_gvg_chan_name);
-                await gvg_chan?.SendMessageAsync(ResultMessages.BotIsOffline);
+                await (gvg_chan?.SendMessageAsync(ResultMessages.BotIsOffline) ?? Task.FromResult<RestUserMessage>(null));
             }
             //await Context.Client.LogoutAsync();
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Context.Client.StopAsync();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            _exitflag.CancelAfter(5000);
+
+            await Task.WhenAny(
+                Context.Client.StopAsync(),
+                Task.Delay(5000)
+            );
+
+            _exitflag.Cancel();
         }
         
     }

@@ -11,18 +11,18 @@ using GvG_Core_Bot.Main.Commands.CustomAttributes;
 
 namespace GvG_Core_Bot.Main.Commands
 {
-    [Name("Game Prep")]
-    public class GamePrep : ModuleBase<SocketCommandContext>
-    {
-        GvG_GameService GameService { get; set; }
+	[Name("Game Prep")]
+	public class GamePrep : ModuleBase<SocketCommandContext>
+	{
+		GvG_GameService GameService { get; set; }
 
-        public GamePrep(IServiceProvider _serv)
-        {
-            this.GameService = (GvG_GameService)_serv.GetService(typeof(GvG_GameService));
-        }
+		public GamePrep(IServiceProvider _serv)
+		{
+			this.GameService = (GvG_GameService)_serv.GetService(typeof(GvG_GameService));
+		}
 
-        [Command("join_game"), Summary("Joins the next game of Gaia vs Guardians."), Alias("jg")]
-        [RequireBotPermission(ChannelPermission.ManagePermissions | ChannelPermission.ManageChannel)]
+		[Command("join_game"), Summary("Joins the next game of Gaia vs Guardians."), Alias("jg")]
+		[RequireBotPermission(GuildPermission.Administrator | GuildPermission.ChangeNickname | GuildPermission.ManageRoles)]
         [RequireContext(ContextType.Guild)]
         public async Task SayJoinGame()
         {
@@ -104,7 +104,7 @@ namespace GvG_Core_Bot.Main.Commands
         {
             var CurrentGame = GameService.GetServerInstance(Context.Guild);
              EmbedBuilder StatusEmbed = CurrentGame.GetFullStatus(showExactGameStatus);
-            await ReplyAsync("", false, StatusEmbed);
+            await ReplyAsync("", false, StatusEmbed.Build());
             if (showBotOwnerStatus)
             {
                 // still in progres
@@ -117,7 +117,7 @@ namespace GvG_Core_Bot.Main.Commands
         {
             var CurrentGame = GameService.GetServerInstance(Context.Guild);
             var response = await CurrentGame.StartGame(Context.User);
-            if (response != null) await ReplyAsync("", false, response);
+            if (response != null) await ReplyAsync("", false, response.Build());
             await Context.Message.DeleteAsync();
         }
     }

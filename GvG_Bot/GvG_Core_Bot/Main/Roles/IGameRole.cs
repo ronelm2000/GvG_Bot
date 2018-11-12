@@ -10,18 +10,20 @@ namespace GvG_Core_Bot.Main.Roles
 {
     public interface IGameRole
     {  
-        List<IGameRole> WhoKnowsYou { get; set; }
+        List<IGameRole> WhoKnowsYou { get; }
         IUser RolePlayer { get; set; }
         GameRoleStatus Status { get; set; }
         IEnumerable<Vector2D> Positions { get; set; }
         Map GameMap { get; set; }
         CommandPriority CurrentPriority { get; set; }
+		int PhasePriority { get; }
+		Faction Faction { get; }
+		int HP { get; }
 
-        event RoleEvent Died;
-        event RoleEvent Revealed;
+		event RoleEvent Died;
+		event RoleEvent Revealed;
 
-        Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio);
-        Task Scout(Vector2D[] newPos, CommandPriority commandedPrio);
+		Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio);
         Task Perform_ActionPhase();
         Task Perform_IdlePhase();
         void TellPatrolStatus(IEnumerable<Vector2D> enumerable, IEnumerable<Vector2D> destroyed_tiles, IEnumerable<Vector2D> poisoned_tiles);
@@ -52,6 +54,13 @@ namespace GvG_Core_Bot.Main.Roles
         Order
     }
 
+	public enum Faction
+	{
+		Gaia,
+		Guardian,
+		OC,
+		Civilian
+	}
 
     public struct Vector2D
     {

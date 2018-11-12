@@ -9,17 +9,48 @@ namespace GvG_Core_Bot.Main.Roles.Gaia
 {
     class Akane : IGameRole
     {
-        public List<IGameRole> WhoKnowsYou { get; set; }
+		public List<IGameRole> WhoKnowsYou { get; private set; } = new List<IGameRole>();
         public IUser RolePlayer { get; set; }
         public GameRoleStatus Status { get; set; }
         public IEnumerable<Vector2D> Positions { get; set; }
         public Map GameMap { get; set; }
         public CommandPriority CurrentPriority { get; set; }
 
-        public event RoleContext.RoleEvent Died;
-        public event RoleContext.RoleEvent Revealed;
+		public int PhasePriority => 2;
+		public Faction Faction { get; private set; } = Faction.Gaia;
 
-        public Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio)
+		public int HP => throw new NotImplementedException();
+
+		public event RoleEvent Died;
+        public event RoleEvent Revealed;
+
+		event RoleEvent IGameRole.Died
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		event RoleEvent IGameRole.Revealed
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio)
         {
             throw new NotImplementedException();
         }

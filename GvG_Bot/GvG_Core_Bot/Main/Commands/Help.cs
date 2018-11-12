@@ -53,14 +53,14 @@ namespace GvG_Core_Bot.Main.Commands
 
                 await ReplyAsync("", false, new EmbedBuilder()
                     .WithTitle("Total List of Commands")
-                    .WithDescription(message));
+                    .WithDescription(message).Build());
             } else
             {
                 var moduleCommands = serv.Commands.Where(x => x.Module.Name.ToLower() == searchTerms.ToLower());
                 if (!moduleCommands.Any()) moduleCommands = serv.Commands.Where(x => x.Aliases.Where(y => y.Contains(searchTerms)).Any());
                 if (!moduleCommands.Any()) moduleCommands = serv.Commands.Where(x => x.Summary.Contains(searchTerms));
                 if (!moduleCommands.Any()) moduleCommands = serv.Commands.Where(x => x.Parameters.Where(y => y.Summary.Contains(searchTerms)).Any());
-                await ReplyAsync("", false, IndexCommands(moduleCommands));
+                await ReplyAsync("", false, IndexCommands(moduleCommands).Build());
             }
         }
 

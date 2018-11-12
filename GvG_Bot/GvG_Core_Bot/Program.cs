@@ -60,6 +60,7 @@ namespace GvG_Core_Bot
             };
 
             _comserv = new CommandService();
+            _comserv.Log += LogAsync;
             __config = new Config();
             _config.Bind(__config);
             _serv = ConfigureServices();
@@ -84,6 +85,18 @@ namespace GvG_Core_Bot
 
             await Task.Delay(-1, ExitToken.Token).ContinueWith(_ => { });
             ExitToken.Dispose();
+        }
+
+        private async Task LogAsync(LogMessage logMessage)
+        {
+            if (logMessage.Exception is CommandException cmdException)
+            {
+                Console.WriteLine($"Exception occurred: {cmdException}");
+            }
+            if (logMessage.Exception != null)
+            {
+                Console.WriteLine($"Exception occurred: {logMessage.Exception}");
+            }
         }
 
         private IServiceProvider ConfigureServices()
@@ -118,7 +131,7 @@ namespace GvG_Core_Bot
         {
             _client.MessageReceived += HandleCommand;
             _client.Ready += Debug_Login;
-            await _comserv.AddModulesAsync(Assembly.GetEntryAssembly());
+            await _comserv.AddModulesAsync(Assembly.GetEntryAssembly(), ConfigureServices());
         }
 
         private async Task Debug_Login()
@@ -151,6 +164,8 @@ namespace GvG_Core_Bot
             // rather an object stating if the command executed succesfully)
             var result = await _comserv.ExecuteAsync(context, argPos, _serv);
             if (!result.IsSuccess)
+                // I need to improve this part by logging in the actual Exception used.
+                // How do I do that?
                 await context.Channel.SendMessageAsync(result.ErrorReason);
             else
             {

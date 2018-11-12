@@ -16,13 +16,14 @@ namespace GvG_Core_Bot.Main.Commands
     {
         [Command("join"), SummaryResx("JoinDesc"), Alias("j")]
         [RequireContext(ContextType.Guild)]
-        [RequireBotPermission(
+        /*[RequireBotPermission(
             GuildPermission.ManageRoles &
             GuildPermission.SendMessages &
             GuildPermission.ManageMessages &
             GuildPermission.ManageGuild &
             GuildPermission.MentionEveryone &
-            GuildPermission.Administrator)]
+            GuildPermission.Administrator &
+			GuildPermission.CreateInstantInvite)]*/
         public async Task JoinFaction(
             [Remainder, Summary("The faction to join.")] string faction
             )

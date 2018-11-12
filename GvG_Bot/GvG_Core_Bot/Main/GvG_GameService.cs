@@ -28,7 +28,7 @@ namespace GvG_Core_Bot.Main
                 return ListOfGames[server.Id];
             } else
             {
-                var newGameInstance = new GvGGame(_serv, server);
+                var newGameInstance = new GvGGame(this, server);
                 ListOfGames.AddOrUpdate(server.Id, newGameInstance, (x,former)=>newGameInstance);
                 return newGameInstance;
             }

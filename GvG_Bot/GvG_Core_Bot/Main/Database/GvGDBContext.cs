@@ -1,5 +1,6 @@
 ﻿using GvG_Core_Bot.Main.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace GvG_Core_Bot.Main.Database
 {
-    public class GvG_DatabaseFactory : IDbContextFactory<GvG_Database>
+    public class GvG_DatabaseFactory : IDesignTimeDbContextFactory<GvG_Database>
     {
         public GvG_Database Create(DbContextFactoryOptions options)
         {
@@ -16,7 +17,14 @@ namespace GvG_Core_Bot.Main.Database
             builder.UseSqlite("Filename=GvG.db");
             return new GvG_Database(builder.Options);
         }
-    }
+
+		public GvG_Database CreateDbContext(string[] args)
+		{
+			var builder = new DbContextOptionsBuilder<GvG_Database>();
+			builder.UseSqlite("Filename=GvG.db");
+			return new GvG_Database(builder.Options);
+		}
+	}
 
     public class GvG_Database : DbContext
     {

@@ -23,7 +23,7 @@ namespace GvG_Core_Bot.Main.Commands
             GvGGame CurrentGame = GameService.GetServerInstance(Context.Guild);
             if (CurrentGame.Status == GameStatus.ActionPhase || CurrentGame.Status == GameStatus.IdlePhase)
             {
-                await ReplyAsync("", false, CurrentGame.Pause(Context));
+                await ReplyAsync("", false, CurrentGame.Pause(Context).Build());
             } else
             {
                 await ReplyAsync("The Game isn't even running.");
@@ -37,7 +37,7 @@ namespace GvG_Core_Bot.Main.Commands
             GvGGame CurrentGame = GameService.GetServerInstance(Context.Guild);
             if (CurrentGame.Status == GameStatus.ActionPhase || CurrentGame.Status == GameStatus.IdlePhase)
             {
-                await ReplyAsync("", false, CurrentGame.Continue(Context));
+                await ReplyAsync("", false, CurrentGame.Continue(Context).Build());
             }
             else
             {

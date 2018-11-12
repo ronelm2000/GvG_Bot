@@ -14,6 +14,8 @@ namespace GvG_Core_Bot.Main.Positioning
         public List<Vector2D> DestroyedTiles { get; private set; } = new List<Vector2D>();
         public List<Vector2D> PoisonedTiles { get; private set; } = new List<Vector2D>();
 
+		public Random RNG { get; private set; } = new Random();
+
         public Map (int x, int y)
         {
             GameMap = new List<Presence>[x, y];

@@ -59,6 +59,8 @@ namespace GvG_Core_Bot.Main
         Dictionary<IGuildUser, IGameRole> RoleAssignments { get; set; } = new Dictionary<IGuildUser, IGameRole>();
         Dictionary<IGuildUser, FakeReportContext> FakeReports { get; set; } = new Dictionary<IGuildUser, FakeReportContext>();
 
+		ActionQueue Queue = new ActionQueue();
+
         #region Time Keeping
         public GameStatus Status { get; private set; } = GameStatus.Cancelled;
         private Timer PhaseTimer { get; set; }
@@ -115,7 +117,7 @@ namespace GvG_Core_Bot.Main
                 .SendMessageAsync(null, false, new EmbedBuilder()
                     .WithTitle(ResultMessages.CreateGameSuccess)
                     .WithDescription(string.Format(ResultMessages.CreateGameSuccess_Desc, Hoster.Mention))
-                    );
+                    .Build());
         }
 
         public async Task<JoinResponse> Join (IGuildUser user)
@@ -184,10 +186,10 @@ namespace GvG_Core_Bot.Main
                 TimerStarted = DateTime.Now;
             }
 
-            await Public_GvG.SendMessageAsync("",false,start_embed);
-            await Guardian_Channel.SendMessageAsync("", false, start_embed);
-            await Gaia_Channel.SendMessageAsync("", false, start_embed);
-            await OC_Channel.SendMessageAsync("", false, start_embed);
+            await Public_GvG.SendMessageAsync("",false,start_embed.Build());
+            await Guardian_Channel.SendMessageAsync("", false, start_embed.Build());
+            await Gaia_Channel.SendMessageAsync("", false, start_embed.Build());
+            await OC_Channel.SendMessageAsync("", false, start_embed.Build());
 
             return null;
         }
@@ -230,7 +232,7 @@ namespace GvG_Core_Bot.Main
         public async Task<IEnumerable<IGameRole>> GenerateOCRoles(int count)
         {
             if (count < 4) await ForceJoin(Occult_Club, OCMembers, 4 - count);
-            IEnumerable<IGameRole> result = new IGameRole[] { new Kotori(), new Kotarou(), new GilAndPana(), new GilAndPana() };
+            IEnumerable<IGameRole> result = new IGameRole[] { new Kotori(Queue), new Kotarou(), new GilAndPana(), new GilAndPana() };
             if (count > 4) for (int i = 0; i < count - 4; i++) result = result.Append(new GilAndPana());
             // randomly, the array can change and you can instead have gil and pana separate.
             return result.OrderBy((x) => Randomizer.Next());
@@ -302,12 +304,20 @@ namespace GvG_Core_Bot.Main
         public void MovePhase ()
         {
             Status = (Status == GameStatus.IdlePhase) ? GameStatus.ActionPhase : GameStatus.IdlePhase;
-            if (Status == GameStatus.IdlePhase) Day++;
+			if (Status == GameStatus.IdlePhase) Day++;
+
+			// arrange each role by priority
+			var roles = RoleAssignments.Select(x => x.Value).OrderByDescending(x => x.PhasePriority);
+			foreach (var role in roles)
+			{
+				if (Status == GameStatus.IdlePhase) role.Perform_ActionPhase();
+				else if (Status == GameStatus.ActionPhase) role.Perform_IdlePhase();
+			}
 
             // placeholder for Storymaker
             var start_embed = new EmbedBuilder().WithTitle($"{StatusNames[Status]} [Day {Day}]").WithThumbnailUrl(Links.LinkRewriteBlue1);
 
-            Public_GvG.SendMessageAsync("", false, start_embed);
+            Public_GvG.SendMessageAsync("", false, start_embed.Build());
             TimerStarted = DateTime.Now;
         }
         public EmbedBuilder Pause (SocketCommandContext context)
@@ -426,6 +436,7 @@ namespace GvG_Core_Bot.Main
             var msg = ":zero::one::two::three::four::five::six::seven::eight:" + Environment.NewLine;
             var flag = RoleContextType.Public;
             IGameRole role = null;
+			var resultEmbed = new EmbedBuilder();
             if (IsAPlayer(user))
             {
                 if (contextChannel.Id == (await user.GetOrCreateDMChannelAsync()).Id) flag = RoleContextType.Private;
@@ -434,10 +445,11 @@ namespace GvG_Core_Bot.Main
             for (int y = 0; y < GameMap.MaxY; y++) {
                 for (int x = 0; x < GameMap.MaxX; x++)
                 {
-
+					
                 }
 
             }
+			return resultEmbed;
         }
         #endregion
 

@@ -10,7 +10,6 @@
 
 namespace GvG_Core_Bot.Main.Messages {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -20,7 +19,7 @@ namespace GvG_Core_Bot.Main.Messages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class CommandMessages {
@@ -40,7 +39,7 @@ namespace GvG_Core_Bot.Main.Messages {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GvG_Core_Bot.Main.Messages.CommandMessages", typeof(CommandMessages).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GvG_Core_Bot.Main.Messages.CommandMessages", typeof(CommandMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -134,6 +133,24 @@ namespace GvG_Core_Bot.Main.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name of the role that must be muted / unmuted..
+        /// </summary>
+        internal static string MuteAll_RoleSummary {
+            get {
+                return ResourceManager.GetString("MuteAll_RoleSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mutes all users with a specified role..
+        /// </summary>
+        internal static string MuteAllDesc {
+            get {
+                return ResourceManager.GetString("MuteAllDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Used during the Idle Phase. You will patrol a specified area, example 5x4 (starting from the top-left-most tile, five tiles right, then four tiles down.) You can change your patrol command until the end of the Idle Phase. Insert commas between the positions to perform a multi-patrol with relevant characters (like Chihaya &amp; Sakuya). Patrol prioritizes a PM to Kagari, and if you had PM&apos;d Kagari within the Phase, it will ignore all other patrol commands in the corresponding public channels. (Useful for bluffin [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PatrolDesc {
@@ -175,6 +192,15 @@ namespace GvG_Core_Bot.Main.Messages {
         internal static string StatusDesc {
             get {
                 return ResourceManager.GetString("StatusDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmutes all users with a specified role..
+        /// </summary>
+        internal static string UnMuteAllDesc {
+            get {
+                return ResourceManager.GetString("UnMuteAllDesc", resourceCulture);
             }
         }
     }

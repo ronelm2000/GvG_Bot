@@ -16,10 +16,42 @@ namespace GvG_Core_Bot.Main.Roles.Civilian
         public Map GameMap { get; set; }
         public CommandPriority CurrentPriority { get; set; }
 
-        public event RoleContext.RoleEvent Died;
-        public event RoleContext.RoleEvent Revealed;
+		public int PhasePriority => throw new NotImplementedException();
 
-        public Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio)
+		public Faction Faction => throw new NotImplementedException();
+
+		public int HP => throw new NotImplementedException();
+
+		public event RoleEvent Died;
+        public event RoleEvent Revealed;
+
+		event RoleEvent IGameRole.Died
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		event RoleEvent IGameRole.Revealed
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio)
         {
             throw new NotImplementedException();
         }

@@ -19,12 +19,44 @@ namespace GvG_Core_Bot.Main.Roles.Civilian
 
         public int FondMemories { get; set; }
 
-        public Kagari ()
+		public int PhasePriority => throw new NotImplementedException();
+
+		public Faction Faction => throw new NotImplementedException();
+
+		public int HP => throw new NotImplementedException();
+
+		public Kagari ()
         {
         }
 
-        public event RoleContext.RoleEvent Died;
-        public event RoleContext.RoleEvent Revealed;
+		event RoleEvent IGameRole.Died
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		event RoleEvent IGameRole.Revealed
+		{
+			add
+			{
+				throw new NotImplementedException();
+			}
+
+			remove
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public event RoleEvent Died;
+        public event RoleEvent Revealed;
 
         public async Task Patrol(Vector2D[] newPosition, CommandPriority prio)
         {

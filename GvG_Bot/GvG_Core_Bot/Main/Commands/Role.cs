@@ -34,7 +34,7 @@ namespace GvG_Core_Bot.Main.Commands
                     if (game.Value.Status >= GameStatus.IdlePhase)
                     {
                         var pm_chan = await Context.User.GetOrCreateDMChannelAsync();
-                        await pm_chan.SendMessageAsync("", false, game.Value.FindRole(Context.Client.GetGuild(game.Key).GetUser(Context.User.Id), false));
+                        await pm_chan.SendMessageAsync("", false, game.Value.FindRole(Context.Client.GetGuild(game.Key).GetUser(Context.User.Id), false).Build());
                     }
                 }
             } else if (Context.Guild != null)
@@ -52,9 +52,9 @@ namespace GvG_Core_Bot.Main.Commands
                     }
                     if (customCommand == "all" && game.Hoster == Context.User)
                     {
-                        await Context.Channel.SendMessageAsync("", false, game.FindAllRoles());
+                        await Context.Channel.SendMessageAsync("", false, game.FindAllRoles().Build());
                     } else {
-                        await Context.Channel.SendMessageAsync("", false, game.FindRole(Context.Guild.GetUser(Context.User.Id), true));
+                        await Context.Channel.SendMessageAsync("", false, game.FindRole(Context.Guild.GetUser(Context.User.Id), true).Build());
                     }
                 }
                 else
