@@ -16,6 +16,7 @@ namespace GvG_Core_Bot.Main.Roles.OccultClub
         public IEnumerable<Vector2D> Positions { get ; set ; }
         public Map GameMap { get ; set ; }
         public CommandPriority CurrentPriority { get ; set ; }
+
 		public int PhasePriority => 10;
 		public Faction Faction => Faction.OC;
 		public int HP { get; private set; } = 05;

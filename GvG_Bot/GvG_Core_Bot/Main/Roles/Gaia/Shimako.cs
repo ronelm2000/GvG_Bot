@@ -16,11 +16,9 @@ namespace GvG_Core_Bot.Main.Roles.Gaia
         public Map GameMap { get; set; }
         public CommandPriority CurrentPriority { get; set; }
 
-		public int PhasePriority => throw new NotImplementedException();
-
-		public Faction Faction => throw new NotImplementedException();
-
-		public int HP => throw new NotImplementedException();
+		public int PhasePriority => 1;
+		public Faction Faction => Faction.Gaia;
+		public int HP => 1;
 
 		public event RoleEvent Died;
         public event RoleEvent Revealed;

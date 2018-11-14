@@ -19,11 +19,9 @@ namespace GvG_Core_Bot.Main.Roles.Civilian
 
         public int FondMemories { get; set; }
 
-		public int PhasePriority => throw new NotImplementedException();
-
-		public Faction Faction => throw new NotImplementedException();
-
-		public int HP => throw new NotImplementedException();
+		public int PhasePriority => 1000;
+		public Faction Faction => Faction.Civilian;
+		public int HP => 100;
 
 		public Kagari ()
         {

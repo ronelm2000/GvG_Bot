@@ -16,11 +16,9 @@ namespace GvG_Core_Bot.Main.Roles.Guardian
         public Map GameMap { get; set; }
         public CommandPriority CurrentPriority { get; set; }
 
-		public int PhasePriority => throw new NotImplementedException();
-
-		public Faction Faction => throw new NotImplementedException();
-
-		public int HP => throw new NotImplementedException();
+		public int PhasePriority => 7;
+		public Faction Faction => Faction.Guardian;
+		public int HP => 30;
 
 		public event RoleEvent Died;
         public event RoleEvent Revealed;

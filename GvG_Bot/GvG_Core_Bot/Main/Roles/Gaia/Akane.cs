@@ -18,8 +18,7 @@ namespace GvG_Core_Bot.Main.Roles.Gaia
 
 		public int PhasePriority => 2;
 		public Faction Faction { get; private set; } = Faction.Gaia;
-
-		public int HP => throw new NotImplementedException();
+		public int HP => 5;
 
 		public event RoleEvent Died;
         public event RoleEvent Revealed;

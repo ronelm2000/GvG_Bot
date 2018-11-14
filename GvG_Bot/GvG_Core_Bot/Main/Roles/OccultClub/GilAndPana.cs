@@ -16,39 +16,26 @@ namespace GvG_Core_Bot.Main.Roles.OccultClub
         public Map GameMap { get; set; }
         public CommandPriority CurrentPriority { get; set; }
 
-		public int PhasePriority => throw new NotImplementedException();
-
-		public Faction Faction => throw new NotImplementedException();
-
-		public int HP => throw new NotImplementedException();
+        public int PhasePriority => 1;
+		public Faction Faction => Faction.OC;
+		public int HP => 4;
 
 		public event RoleEvent Died;
         public event RoleEvent Revealed;
 
-		event RoleEvent IGameRole.Died
-		{
-			add
-			{
-				throw new NotImplementedException();
-			}
+        RoleEvent _died;
+        RoleEvent _revealed;
 
-			remove
-			{
-				throw new NotImplementedException();
-			}
+        event RoleEvent IGameRole.Died
+		{
+            add => _died += value;
+            remove => _died -= value;
 		}
 
 		event RoleEvent IGameRole.Revealed
 		{
-			add
-			{
-				throw new NotImplementedException();
-			}
-
-			remove
-			{
-				throw new NotImplementedException();
-			}
+            add => _revealed += value;
+            remove => _revealed += value;
 		}
 
 		public Task Patrol(Vector2D[] newPos, CommandPriority commandedPrio)
